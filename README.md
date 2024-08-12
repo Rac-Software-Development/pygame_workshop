@@ -6,6 +6,8 @@ De "lame shooter" is een game waarin je een klein vliegtuigje beweegt die het op
 
 ![img.png](docs%2Fimg.png)
 
+Mocht je vast komen te zitten, je kunt een voorstel voor de code van de verschillende stappen vinden in de map "uitwerkingen". Het kan goed zijn dat jouw code afwijkt van onze aanpak en dat is prima! 
+
 ## Stap 1: Opzet en installatie
 Laten we voordat je begint eerst de pygame library installeren. Dat doe je met het volgende commando:
 ```bash
