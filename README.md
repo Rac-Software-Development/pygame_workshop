@@ -20,7 +20,7 @@ Een standaard Pygame heeft een aantal vaste bouwblokken. We hebben die code alva
 We zullen verder niets doen met deze vaste bouwblokken, maar het is wel handig om te weten wat ze doen. Er zijn: 
 - Globale variabelen: variabelen die overal in de code gebruikt kunnen worden
 - Pygame componenten: de basis van Pygame, zoals het scherm en de game loop
-- De game loop: de oneindige loop die het spel draaiende houdt
+- De game loop: de oneindige loop die het spel draaiende houdt. Iedere keer dat alle stappen in de loop worden gedaan noemen we een "tick" of een "frame".
 
 #### Globale variabelen 
 In eerste instantie maken we een aantal "globale variabelen" aan. Deze zetten we bovenin de code zodat we ze makkelijk kunnen aanpassen. Dit zijn de standaard instellingen voor ons spel. In dit geval hebben we de schermgrootte, de achtergrondkleur en de "tick time" (de snelheid waarmee het spel loopt) gedefinieerd. De achtergrondkleur is samengesteld uit rood, groen en blauw. (0, 0, 0) is zwart, (255, 0, 0) is bijvoorbeeld rood en (255, 255, 255) is wit. We zullen later nog nieuwe variabelen toevoegen. 
@@ -84,7 +84,7 @@ We kunnen met de hand deze rectangle samenstellen, maar we kunnen ook aan Pygame
 player_image = pygame.image.load("images/player.png").convert_alpha()
 player_rect = player_image.get_rect() 
 ```
-Met de huidige player_rect rectangle staat het scheepje in de startpositie linksboven in het scherm. Da's niet mooi, we willen het scheepje in het midden van het scherm hebben. Dit kunnen we doen door de x en y positie van de rectangle aan te passen. We doen dit met de "move_ip" functie. De "move_ip" vraagt om een x en een y en zal de rectangle dan verplaatsen met die waarden. Dit is ook de functie die we later gaan gebruiken om onze figuren te animeren. Als de rectangle op (0, 0) staat en we doen "move_ip(10, 10)" dan staat de rectangle op (10, 10). Doen we daarna "move_ip(5, 5)" dan staat de rectangle op (15, 15).
+Met de huidige player_rect rectangle staat het scheepje in de startpositie linksboven in het scherm. Da's niet mooi, we willen het scheepje in het midden van het scherm hebben. Dit kunnen we doen door de x en y positie van de rectangle aan te passen. We doen dit met de "move_ip" functie ("move in place"). De "move_ip" vraagt om een x en een y en zal de rectangle dan verplaatsen met die waarden. Dit is ook de functie die we later gaan gebruiken om onze figuren te animeren. Als de rectangle op (0, 0) staat en we doen "move_ip(10, 10)" dan staat de rectangle op (10, 10). Doen we daarna "move_ip(5, 5)" dan staat de rectangle op (15, 15).
 
 ```python
 player_image = pygame.image.load("images/player.png").convert_alpha()
@@ -92,7 +92,7 @@ player_rect = player_image.get_rect()
 center_height = SCREEN_HEIGHT // 2
 player_rect.move_ip(0, center_height)
 ```
-Besef dat op dit moment er nog steeds niets op het scherm staat. We hebben alleen een afbeelding en een rectangle gemaakt.
+Besef dat op dit moment er nog steeds niets op het scherm staat. We hebben alleen een afbeelding ingeladen in het geheugen en een rectangle gemaakt en er is nog geen verband tussen deze twee.
 
 #### De speler op het scherm, deel 2 
 Als laatste stap vertellen we Pygame om de afbeelding van de speler op het canvas te zetten. Dit doen we met de "blit" functie. Deze functie heeft twee parameters: de afbeelding die we willen tekenen en de rectangle waar we de afbeelding willen tekenen. Beide hebben we in de voorgaande stappen gemaakt. 
@@ -104,6 +104,9 @@ Blitten zal ieder frame moeten gebeuren, anders verdwijnt de speler weer van het
 def game_loop():
     canvas.blit(player_image, player_rect)
 ```
+
+(Optioneel) We hebben nog geen achtergrond. In de images map staat een "starfield.png". Zet deze ook op het scherm. Een probleem van deze afbeelding is dat deze niet groot genoeg is voor ons scherm. Je zou deze eerst moeten vergroten met bijvoorbeeld de _pygame.transform.smoothscale_ functie. Let erop dat pygame.transform functies een heleboel processorkracht kosten, dus doe dit maar één keer en doe dat buiten de game loop.   
+
 
 ## Stap 3: Een eerste vijand
 We gaan nu een eerste vijand op het scherm zetten. Deze willen we helemaal réchts op het scherm hebben, op een willekeurige hoogte. Je kunt hiervoor de "images/lameenemy.png" gebruiken: 
@@ -138,7 +141,7 @@ def get_random_y(image_height):
     return ... 
 ```
 
-(Optioneel) De vijand heeft nu altijd hetzelfde uiterlijk. Er staat in de images mag een tweede vijand, de "fastenemy". Kun je de vijand een willekeurig uiterlijk geven? We gaan in een verdere opdracht meerdere vijanden op het scherm zetten, hou daar rekening mee.  
+(Optioneel) De vijand heeft nu altijd hetzelfde uiterlijk. Er staat in de images mag een tweede vijand, de "fastenemy". Kun je de vijand een willekeurig uiterlijk geven? We gaan in een volgende opdracht meerdere vijanden op het scherm zetten, hou daar rekening mee.  
 
 ## Stap 4: Beweging van de speler
 Je hebt het niet door nu de boel stil staat, maar onze game loop functie draait 60 keer per seconde. Beweging is eigenlijk zo simpel als het aanpassen van de x en y coordinaten van de rectangle zodat deze een klein stukje verplaatst de volgende keer dat het canvas wordt opgetekend. We gaan de speler laten bewegen met de pijltjestoetsen op het toetsenbord. We zullen elke keer dat de game loop draait kijken of er een toets is ingedrukt en zo ja, de positie van de speler rectangle aanpassen.
@@ -228,6 +231,7 @@ Hoe hoger de "ENEMIES_SPAWN_CHANCE" hoe meer vijanden er zullen verschijnen.
 
 (Optioneel) Eigenlijk zou de spawn chance omhoog moeten gaan na verloop van tijd. De gebruikelijke aanpak is een waarde voor de "spawn_chance" overnemen van de start instelling en deze daarna elke X seconden te verhogen. 
 
+(Optioneel) Wat het geheel meteeen een stuk speelbaarder maakt is als er iets valt te winnen. Maak een conditie die, als de speler de andere kant van het veld haalt, het spel afsluit met een "You win!" melding.
 
 ## Stap 8: "Make it work, then make it good"
 Als je de code hebt gevolgd tot hier, dan heb je een werkende game. Maar waarschijnlijk is jouw code ook een beetje een zooitje. Dat is prima. Een hele bekende uitspraak in software ontwikkeling is "Make it work, then make it good".
@@ -237,7 +241,7 @@ Nu je een werkende game hebt, kun je gaan kijken of je de code netter kunt maken
 - Stop waar mogelijk code in functies, zoals bijvoorbeeld de initialisatie van de speler
 - Vervang de globale variabelen zoals player_rect en enemies_list door een enkele dictionary die je "game_state" noemt.
 
-Gefeliciteerd! Hiermee heb je een werkende game gemaakt in Pygame, met een stijl van programmeren die het ook makkelijk maakt om deze in de toekomst in een team te onderhouden! 
+Maar, ben je al tot hier gekomen? In dat geval, goed gewerkt! Jouw eerste game is een feit. En met de bouwblokken die je hier hebt gebruikt kun je alles nabouwen aan arcade klassiekers die je maar kunt bedenken!
 
 ## Stap 9: (Optioneel) Shooting!
 Leuk, deze game, en met een hoge spawn rate ook moeilijk, maar het is nogal eenzijdig. De speler kan alleen maar bewegen en de vijand kan alleen maar bewegen. Laten we daarom de speler ook laten schieten.
@@ -247,4 +251,4 @@ Leuk, deze game, en met een hoge spawn rate ook moeilijk, maar het is nogal eenz
 - Deze raket moet dan in hoge snelheid naar rechts bewegen
 - Als de raket een vijand raakt, dan moeten vijand en raket verdwijnen
 - Als de raket het scherm uitvliegt, dan moet de raket verdwijnen
-- En tenslotte, we willen voorkomen dat je de spatiebalk ingedrukt houdt en zo een oneindige hoeveelheid raketten afvuurt. Daarvoor kun je een timer gebruiken zoals ook te zien is in het voorbeeld met het stuiterende logo. 
+- En tenslotte, we willen voorkomen dat je de spatiebalk ingedrukt houdt en zo een oneindige hoeveelheid raketten afvuurt. Daarvoor kun je een timer gebruiken zoals ook te zien is in de werkplaats1_starter code met het stuiterende logo. 
