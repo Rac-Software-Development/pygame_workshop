@@ -6,7 +6,7 @@ De "lame shooter" is een game waarin je een klein vliegtuigje beweegt die het op
 
 ![img.png](docs%2Fimg.png)
 
-Mocht je vast komen te zitten, je kunt een voorstel voor de code van de verschillende stappen vinden in de map "uitwerkingen". Het kan goed zijn dat jouw code afwijkt van onze aanpak en dat is prima! 
+Mocht je vast komen te zitten, je kunt een voorstel voor de code van de verschillende stappen vinden in de map "uitwerkingen". Het kan goed zijn dat jouw code afwijkt van onze aanpak en dat is prima! Let er op dat de code in de uitwerkingen verwijst naar de afbeeldingen in de map bovengelegen map "images". Als je code overneemt, vervang dan eventuele verwijzingen naar "../images" met "images". 
 
 ## Stap 1: Opzet en installatie
 Laten we voordat je begint eerst de pygame library installeren. Dat doe je met het volgende commando:
@@ -61,6 +61,11 @@ Daarna verversen we ons canvas, we "verven" het helemaal zwart. Daarna roepen we
 ```
 
 ## Stap 2: De speler
+
+
+> Vanaf dit punt ga je code wijzigen in de game.py file die mee is geleverd.
+
+
 We gaan nu de speler op het scherm zetten. We hebben hiervoor een afbeelding van een vliegtuigje. Deze afbeelding gaan we inladen en op het scherm zetten met behulp van een "rectangle". Verwijder de code uit de "game_loop" functie voordat je verder gaat. 
 
 #### De speler afbeelding
@@ -140,8 +145,6 @@ Het resultaat zou dus iets moeten zijn als:
 def get_random_y(image_height):
     return ... 
 ```
-
-(Optioneel) De vijand heeft nu altijd hetzelfde uiterlijk. Er staat in de images mag een tweede vijand, de "fastenemy". Kun je de vijand een willekeurig uiterlijk geven? We gaan in een volgende opdracht meerdere vijanden op het scherm zetten, hou daar rekening mee.  
 
 ## Stap 4: Beweging van de speler
 Je hebt het niet door nu de boel stil staat, maar onze game loop functie draait 60 keer per seconde. Beweging is eigenlijk zo simpel als het aanpassen van de x en y coordinaten van de rectangle zodat deze een klein stukje verplaatst de volgende keer dat het canvas wordt opgetekend. We gaan de speler laten bewegen met de pijltjestoetsen op het toetsenbord. We zullen elke keer dat de game loop draait kijken of er een toets is ingedrukt en zo ja, de positie van de speler rectangle aanpassen.
@@ -229,9 +232,11 @@ for enemy_rect in enemies_list:
 ```
 Hoe hoger de "ENEMIES_SPAWN_CHANCE" hoe meer vijanden er zullen verschijnen.
 
+Vergeet niet om nu nog alle code die verwijst naar een enkele vijand te verwijderen. Dat is bijvoorbeeld de globale "enemy_rect" variabele en verwijzingen daar naar in de game loop.
+
 (Optioneel) Eigenlijk zou de spawn chance omhoog moeten gaan na verloop van tijd. De gebruikelijke aanpak is een waarde voor de "spawn_chance" overnemen van de start instelling en deze daarna elke X seconden te verhogen. 
 
-(Optioneel) Wat het geheel meteeen een stuk speelbaarder maakt is als er iets valt te winnen. Maak een conditie die, als de speler de andere kant van het veld haalt, het spel afsluit met een "You win!" melding.
+(Optioneel) Wat het geheel meteen een stuk speelbaarder maakt is als er iets valt te winnen. Maak een conditie die, als de speler de andere kant van het veld haalt, het spel afsluit met een "You win!" melding.
 
 ## Stap 8: "Make it work, then make it good"
 Als je de code hebt gevolgd tot hier, dan heb je een werkende game. Maar waarschijnlijk is jouw code ook een beetje een zooitje. Dat is prima. Een hele bekende uitspraak in software ontwikkeling is "Make it work, then make it good".
