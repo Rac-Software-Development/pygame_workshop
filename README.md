@@ -11,7 +11,7 @@ Mocht je vast komen te zitten, je kunt een voorstel voor de code van de verschil
 ## Stap 1: Opzet en installatie
 Laten we voordat je begint eerst de pygame library installeren. Dat doe je met het volgende commando:
 ```bash
-pip install pygame
+pip install pygame-ce
 ```
 Als deze regel faalt controleer dan in de pygame presentatie op Teams of jouw specifieke fout niet één van de bekende problemen is. 
 
